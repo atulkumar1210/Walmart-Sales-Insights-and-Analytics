@@ -35,7 +35,7 @@ IGNORE 1 ROWS;
 
 
 ------------------- Feature Engineering -----------------------------
-1. Time_of_day
+-- 1. Time_of_day
 
 SELECT time,
 (CASE 
@@ -57,7 +57,7 @@ SET time_of_day = (
 );
 
 
-2.Day_name
+-- 2.Day_name
 
 SELECT date,
 DAYNAME(date) AS day_name
@@ -68,7 +68,7 @@ ALTER TABLE sales ADD COLUMN day_name VARCHAR(10);
 UPDATE sales
 SET day_name = DAYNAME(date);
 
-3.Momth_name
+-- 3.Momth_name
 
 SELECT date,
 MONTHNAME(date) AS month_name
@@ -81,14 +81,14 @@ SET month_name = MONTHNAME(date);
 
 
 ----------------Exploratory Data Analysis (EDA)----------------------
-Generic Questions
+-- Generic Questions
 -- 1.How many distinct cities are present in the dataset?
 SELECT DISTINCT city FROM sales;
 
 -- 2.In which city is each branch situated?
 SELECT DISTINCT branch, city FROM sales;
 
-Product Analysis
+-- Product Analysis
 -- 1.How many distinct product lines are there in the dataset?
 SELECT COUNT(DISTINCT product_line) FROM sales;
 
@@ -144,7 +144,7 @@ SELECT product_line, ROUND(AVG(rating),2) average_rating
 FROM sales GROUP BY product_line ORDER BY average_rating DESC;
 
 
-Sales Analysis
+-- Sales Analysis
 -- 1.Number of sales made in each time of the day per weekday
 SELECT day_name, time_of_day, COUNT(invoice_id) AS total_sales
 FROM sales GROUP BY day_name, time_of_day HAVING day_name NOT IN ('Sunday','Saturday');
@@ -164,7 +164,7 @@ FROM sales GROUP BY city ORDER BY total_VAT DESC LIMIT 1;
 SELECT customer_type, SUM(VAT) AS total_VAT
 FROM sales GROUP BY customer_type ORDER BY total_VAT DESC LIMIT 1;
 
-Customer Analysis
+-- Customer Analysis
 
 -- 1.How many unique customer types does the data have?
 SELECT COUNT(DISTINCT customer_type) FROM sales;
